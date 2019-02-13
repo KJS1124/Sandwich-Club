@@ -7,29 +7,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class JsonUtils {
+    private static final String NAME = "name";
+    private static final String PLACE_OF_ORIGIN = "placeOfOrigin";
+    private static final String DESCRIPTION = "description";
+    private static final String IMAGE = "image";
+    private static final String INGREDIENTS = "ingredients";
+    private static final String MAIN_NAME = "mainName";
+    private static final String ALSO_KNOWN_AS = "alsoKnownAs";
 
     public static Sandwich parseSandwichJson(String json) throws JSONException {
-        final String nameProperty = "name";
-        final String placeOfOriginProperty = "placeOfOrigin";
-        final String descriptionProperty = "description";
-        final String imageProperty = "image";
-        final String ingredientsProperty = "ingredients";
-        final String mainNameProperty = "mainName";
-        final String alsoKnownAsProperty = "alsoKnownAs";
 
         JSONObject object = new JSONObject(json);
 
-        String name = object.getJSONObject(nameProperty).getString(mainNameProperty);
-        List<String> alsoKnownAs = convertToList(object.getJSONObject(nameProperty).getJSONArray(alsoKnownAsProperty));
-        String description = object.getString(descriptionProperty);
-        String placeOfOrigin = object.getString(placeOfOriginProperty);
-        String image = object.getString(imageProperty);
-        List<String> ingredients = convertToList(object.getJSONArray(ingredientsProperty));
+        String name = object.getJSONObject(NAME).getString(MAIN_NAME);
+        List<String> alsoKnownAs = convertToList(object.getJSONObject(NAME).getJSONArray(ALSO_KNOWN_AS));
+        String description = object.getString(DESCRIPTION);
+        String placeOfOrigin = object.getString(PLACE_OF_ORIGIN);
+        String image = object.getString(IMAGE);
+        List<String> ingredients = convertToList(object.getJSONArray(INGREDIENTS));
 
         Sandwich sandwich = new Sandwich(name, alsoKnownAs, placeOfOrigin, description, image, ingredients);
         return sandwich;
